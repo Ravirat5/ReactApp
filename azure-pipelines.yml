@@ -1,0 +1,25 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - script: |
+      echo "Installing dependencies..."
+      npm install
+    displayName: 'Install dependencies'
+
+  - script: |
+      echo "Building the app..."
+      npm run build
+    displayName: 'Build the app'
+
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: 'build'
+      artifactName: 'react-app'
+    displayName: 'Publish Build Artifact'
+ 
